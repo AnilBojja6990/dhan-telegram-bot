@@ -3,13 +3,13 @@ from kite_market_data import update_candles
 from strategy import calculate_vwap, check_vwap_retest
 from telegram_bot import send_test
 
-RELIANCE_TOKEN = 738561
+SYMBOL = "NSE:RELIANCE"
 
 print("Bot started in PAPER mode (Zerodha live quotes)")
 
 while True:
     try:
-        df = update_candles(RELIANCE_TOKEN)
+        df = update_candles(SYMBOL)
         df = calculate_vwap(df)
 
         signal = check_vwap_retest(df)
@@ -18,7 +18,7 @@ while True:
             send_test()
             print("PAPER signal sent")
 
-        time.sleep(30)  # poll quotes every 30 sec
+        time.sleep(30)
 
     except Exception as e:
         print("Error:", e)

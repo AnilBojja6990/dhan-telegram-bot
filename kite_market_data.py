@@ -6,14 +6,12 @@ from datetime import datetime
 kite = KiteConnect(api_key=os.getenv("KITE_API_KEY"))
 kite.set_access_token(os.getenv("KITE_ACCESS_TOKEN"))
 
-# store live candles in memory
 candles = []
 
-def update_candles(instrument_token):
-    quote = kite.quote([instrument_token])[instrument_token]
+def update_candles(symbol):
+    quote = kite.quote([symbol])[symbol]
 
     ltp = quote["last_price"]
-    ohlc = quote["ohlc"]
     volume = quote["volume"]
 
     now = datetime.now()
