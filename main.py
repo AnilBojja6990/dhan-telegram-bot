@@ -4,13 +4,13 @@ from strategy import calculate_vwap, check_vwap_retest
 from telegram_bot import send_test
 
 # Zerodha instrument token
-NIFTY_50_TOKEN = 256265  # NIFTY 50 index
+RELIANCE_TOKEN = 738561
 
 print("Bot started in PAPER mode (Zerodha live data)")
 
 while True:
     try:
-        df = get_5min_candles(NIFTY_50_TOKEN)
+        df = get_5min_candles(RELIANCE_TOKEN)
         df = calculate_vwap(df)
 
         signal = check_vwap_retest(df)
