@@ -1,16 +1,15 @@
 import time
-from kite_market_data import get_5min_candles
+from kite_market_data import update_candles
 from strategy import calculate_vwap, check_vwap_retest
 from telegram_bot import send_test
 
-# Zerodha instrument token
 RELIANCE_TOKEN = 738561
 
-print("Bot started in PAPER mode (Zerodha live data)")
+print("Bot started in PAPER mode (Zerodha live quotes)")
 
 while True:
     try:
-        df = get_5min_candles(RELIANCE_TOKEN)
+        df = update_candles(RELIANCE_TOKEN)
         df = calculate_vwap(df)
 
         signal = check_vwap_retest(df)
@@ -19,8 +18,8 @@ while True:
             send_test()
             print("PAPER signal sent")
 
-        time.sleep(300)  # 5 minutes
+        time.sleep(30)  # poll quotes every 30 sec
 
     except Exception as e:
         print("Error:", e)
-        time.sleep(60)
+        time.sleep(30)
